@@ -1,0 +1,278 @@
+/* ================================================================
+   ARENA GARRAFA — CARDÁPIO SALÃO
+   Tema escuro, alto contraste, pensado para leitura a vários metros
+   numa Smart TV. Cores: texto BRANCO e AMARELO sobre fundo PRETO.
+   As medidas-base ficam nas variáveis abaixo.
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   1. VARIÁVEIS
+   ---------------------------------------------------------------- */
+:root {
+  /* Paleta */
+  --preto:          #000000;
+  --preto-alt:      #0d0d0d;
+  --amarelo:        #FFC61A;   /* títulos e preços */
+  --amarelo-forte:  #FFD400;
+  --branco:         #FFFFFF;   /* nomes dos produtos */
+  --cinza:          #7c7c7c;
+  --pontilhado:     rgba(255, 255, 255, 0.22);
+
+  /* Tipografia — grande, para ver de longe */
+  --fonte: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --tam-titulo: 76px;
+  --tam-item:   40px;
+  --tam-preco:  44px;
+
+  /* Altura do banner no topo (fácil de ajustar) */
+  --altura-topo: 300px;
+
+  /* Efeitos */
+  --transicao: 0.8s;
+}
+
+/* ----------------------------------------------------------------
+   2. RESET & BASE
+   ---------------------------------------------------------------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--preto);
+  overflow: hidden;                 /* nunca usar barras de rolagem */
+  font-family: var(--fonte);
+  color: var(--branco);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ----------------------------------------------------------------
+   3. PALCO — 1920x1080 fixo (escala aplicada via JS)
+   ---------------------------------------------------------------- */
+#palco {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 16%, #171717 0%, #050505 68%);
+}
+
+/* ----------------------------------------------------------------
+   4. TOPO / BANNER
+   ---------------------------------------------------------------- */
+.topo {
+  flex: 0 0 auto;
+  width: 100%;
+  height: var(--altura-topo);
+  overflow: hidden;
+  border-bottom: 3px solid rgba(255, 198, 26, 0.30);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+.topo__banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  display: block;
+}
+
+.topo__banner[hidden] { display: none; }
+
+/* Reserva caso a imagem do banner falte (mantém a marca visível) */
+.topo__fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(180deg, #10263f 0%, #061019 100%);
+}
+
+.topo__fallback-marca {
+  font-size: 110px;
+  font-weight: 800;
+  letter-spacing: 10px;
+  color: var(--branco);
+}
+
+.topo__fallback-sub {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+
+/* ----------------------------------------------------------------
+   5. PÁGINA DA CATEGORIA
+   ---------------------------------------------------------------- */
+.pagina {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px 96px 44px;
+  overflow: hidden;
+}
+
+.categoria-titulo {
+  flex: 0 0 auto;
+  font-size: var(--tam-titulo);
+  font-weight: 800;
+  color: var(--amarelo);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+/* Traço dourado decorativo abaixo do título */
+.categoria-titulo::after {
+  content: "";
+  display: block;
+  width: 190px;
+  height: 5px;
+  margin: 18px auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--amarelo), transparent);
+}
+
+/* Lista de itens — 1 coluna (poucos itens) ou 2 colunas automáticas
+   (muitos itens), sempre distribuída na altura disponível. --fit é
+   reduzido por script.js se ainda assim faltar espaço, sem cortar. */
+.itens {
+  --fit: 1;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 1720px;
+  min-height: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+  column-gap: 72px;
+}
+
+.itens.duas-colunas { grid-template-columns: 1fr 1fr; }
+
+/* Cada coluna ocupa toda a altura e espaça os itens igualmente. */
+.coluna {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+  min-width: 0;
+}
+
+.item {
+  display: flex;
+  align-items: baseline;      /* nome, pontilhado e preço na mesma linha de base */
+  gap: 26px;
+  padding: calc(10px * var(--fit)) 6px;
+}
+
+.item__nome {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-size: calc(var(--tam-item) * var(--fit));
+  font-weight: 500;
+  color: var(--branco);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Linha pontilhada ligando nome ao preço (estilo do cardápio impresso).
+   Alinhada logo abaixo da linha de base do texto — como num cardápio. */
+.item__lider {
+  flex: 1 1 auto;
+  align-self: baseline;
+  height: 0;
+  min-width: 30px;
+  border-bottom: 4px dotted var(--pontilhado);
+  transform: translateY(6px);
+}
+
+.item__preco {
+  flex: 0 0 auto;
+  font-size: calc(var(--tam-preco) * var(--fit));
+  font-weight: 800;
+  color: var(--amarelo);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------------------
+   6. TRANSIÇÃO ENTRE PÁGINAS (fade + leve slide)
+   ---------------------------------------------------------------- */
+.pagina.entrando .categoria-titulo,
+.pagina.entrando .itens {
+  animation: entra-pagina var(--transicao) ease;
+}
+
+@keyframes entra-pagina {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------------------------------------------------------------
+   7. LETREIRO DO RODAPÉ (frases que se alternam)
+   ---------------------------------------------------------------- */
+.letreiro {
+  flex: 0 0 auto;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-top: 2px solid rgba(255, 198, 26, 0.28);
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 198, 26, 0.06) 100%);
+}
+
+.letreiro[hidden] { display: none; }
+
+.letreiro__icone {
+  font-size: 26px;
+  flex: 0 0 auto;
+}
+
+.letreiro__frase {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.letreiro__frase.visivel { opacity: 1; }
+
+/* ----------------------------------------------------------------
+   8. INDICADOR DE PAUSA
+   ---------------------------------------------------------------- */
+.indicador-pausa {
+  position: fixed;
+  top: 26px;
+  right: 40px;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid var(--amarelo);
+  color: var(--amarelo);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 22px;
+  border-radius: 12px;
+}
+
+.indicador-pausa[hidden] { display: none; }

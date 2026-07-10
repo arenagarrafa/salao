@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Arena Garrafa — Cardápio Salão</title>
+  <meta name="viewport" content="width=1920, initial-scale=1" />
+  <meta name="description" content="Cardápio digital do salão — Arena Garrafa" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       PALCO — tela fixa 1920x1080, escalada por script.js para
+       preencher qualquer Smart TV sem barras de rolagem.
+       ============================================================ -->
+  <div id="palco">
+
+    <!-- Banner fixo no topo de todas as páginas -->
+    <header class="topo">
+      <img id="banner" class="topo__banner" src="assets/banner.jpg"
+           alt="Arena Garrafa — Cardápio Salão" />
+      <div id="banner-fallback" class="topo__fallback" hidden>
+        <span class="topo__fallback-marca">ARENA GARRAFA</span>
+        <span class="topo__fallback-sub">Cardápio Salão</span>
+      </div>
+    </header>
+
+    <!-- Página da categoria atual (uma categoria por vez) -->
+    <main id="pagina" class="pagina">
+      <h1 id="categoria-titulo" class="categoria-titulo">Categoria</h1>
+      <div id="categoria-itens" class="itens">
+        <!-- itens gerados por script.js -->
+      </div>
+    </main>
+
+    <!-- Letreiro do rodapé — frases que se alternam (edite em menu.js) -->
+    <footer id="letreiro" class="letreiro">
+      <span class="letreiro__icone">🍻</span>
+      <span id="letreiro-frase" class="letreiro__frase"></span>
+      <span class="letreiro__icone">🍻</span>
+    </footer>
+
+  </div>
+
+  <!-- Indicador discreto de pausa (atalho: Espaço) -->
+  <div id="indicador-pausa" class="indicador-pausa" hidden>⏸ PAUSADO</div>
+
+  <script src="menu.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

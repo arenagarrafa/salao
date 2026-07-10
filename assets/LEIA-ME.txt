@@ -1,0 +1,36 @@
+ARENA GARRAFA — CARDÁPIO SALÃO
+==================================================================
+Cardápio digital simples para Smart TV (funciona 100% offline).
+Basta abrir o index.html no navegador da TV e apertar F (tela cheia).
+
+ARQUIVOS
+  index.html   -> estrutura (não precisa editar)
+  style.css    -> aparência (não precisa editar)
+  script.js    -> funcionamento + CONFIG (tempo padrão das páginas)
+  menu.js      -> AQUI você edita os itens, preços, categorias e tempos
+  assets/
+    banner.jpg -> banner exibido no topo de todas as páginas
+
+COMO ATUALIZAR
+  - Preços / itens / categorias: edite somente o arquivo menu.js.
+  - Tempo de cada página: campo "tempo" (em milissegundos) na
+    categoria dentro do menu.js. Ex.: 12000 = 12 segundos.
+    Sem esse campo, usa o padrão em script.js (CONFIG.tempoPadrao).
+  - Frases do rodapé (letreiro): edite a lista "frases" no menu.js.
+    O tempo de troca fica em script.js (CONFIG.tempoLetreiro).
+  - Trocar o banner: substitua assets/banner.jpg por outra imagem.
+    DIMENSÃO IDEAL: 1920 x 300 px (largura Full HD, encaixa na faixa
+    do topo sem cortar nada). A altura da faixa é a variável
+    --altura-topo no style.css (padrão 300px) — se mudar a altura do
+    banner, ajuste essa variável com o mesmo valor. Sem o arquivo,
+    aparece a marca em texto.
+
+ATALHOS (teclado / controle com teclado)
+  seta direita  -> próxima categoria
+  seta esquerda -> categoria anterior
+  barra de espaço -> pausar / retomar
+  F -> tela cheia
+
+Cada categoria ocupa uma página inteira e elas se alternam sozinhas,
+em loop infinito. Cores: nomes em BRANCO, títulos e preços em AMARELO,
+fundo PRETO — alto contraste para leitura à distância.
