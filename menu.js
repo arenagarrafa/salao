@@ -30,7 +30,7 @@ const menu = [
     categoria: "Cervejas 600 ml",
     tempo: 14000,
     itens: [
-      { nome: "Skol 600 ml", preco: "R$ 10,00" },
+      { nome: "Skol 600 ml (indisponível) ", preco: "R$ 10,00" },
       { nome: "Antarctica 600 ml", preco: "R$ 10,00" },
       { nome: "Brahma Chopp 600 ml", preco: "R$ 10,00" },
       { nome: "Brahma Duplo Malte 600 ml", preco: "R$ 11,00" },
@@ -84,7 +84,6 @@ const menu = [
       { nome: "Ovos de Codorna (8 un)", preco: "R$ 10,00" },
       { nome: "Calabresa", preco: "R$ 20,00" },
       { nome: "Calabresa com Fritas", preco: "R$ 30,00" },
-      { nome: "Filé com Fritas", preco: "R$ 40,00" },
       { nome: "Filé 300 g", preco: "R$ 45,00" },
       { nome: "Asinhas de frango", preco: "R$ 20,00" },
       { nome: "Pastelzinho (8 un) queijo/carne", preco: "R$ 15,00" }
